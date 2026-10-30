@@ -6,8 +6,21 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="carrot-confetti" aria-hidden="true"></div>
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="nav-brand" href="#home" aria-label="Villam home"><img src="assets/villam-carrot.svg" alt="" width="32" height="24" />villam</a>
+        <div class="nav-links">
+          <a href="#app">The app</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#our-story">Our story</a>
+          <a class="nav-launch" href="#waitlist">Launch updates</a>
+        </div>
+      </nav>
+    </header>
     <main class="page-shell">
-      <section class="hero-section">
+      <section class="hero-section" id="home">
+        <div class="hero-intro">
         <div class="hero-copy">
           <h1>Fresh produce from your neighbors</h1>
           <p class="hero-text">
@@ -24,9 +37,34 @@
           />
           <div class="badge">Launching Soon</div>
         </div>
+        </div>
+
+        <div class="app-preview" id="app">
+          <div class="app-preview-note" aria-hidden="true">
+            <span>check out our app</span>
+            <svg viewBox="0 0 120 86" fill="none">
+              <path d="M12 9C77-5 112 25 79 45C55 60 40 33 64 30C92 27 103 55 89 76M89 76L84 60M89 76L105 68" />
+            </svg>
+          </div>
+          <div class="phone-stack" data-active="buyer">
+          <button class="phone-preview" data-view="buyer" type="button" aria-label="Bring the shopper app preview forward" aria-pressed="true">
+            <img src="assets/villam-app-preview.png" alt="Villam app home screen showing grocery lists, seasonal produce, and nearby farms" width="1206" height="2622" />
+            <span class="phone-home-indicator" aria-hidden="true"></span>
+          </button>
+          <button class="phone-preview" data-view="farmer" type="button" aria-label="Bring the farmer app preview forward" aria-pressed="false">
+            <img src="assets/villam-farm-preview.png" alt="Villam farmer screen showing produce listings and farm management" width="1206" height="2622" />
+            <span class="phone-home-indicator" aria-hidden="true"></span>
+          </button>
+          </div>
+          <div class="preview-controls" role="group" aria-label="Choose an app preview">
+            <button type="button" data-view="buyer" aria-pressed="true">For shoppers</button>
+            <button type="button" data-view="farmer" aria-pressed="false">For growers</button>
+          </div>
+          <p class="app-preview-caption">Two sides of something fresh. Tap to explore.</p>
+        </div>
       </section>
 
-      <section class="features-section">
+      <section class="features-section" id="how-it-works">
         <div class="section-header">
           <h2>How it works</h2>
           <p>
@@ -104,10 +142,82 @@
           </article>
         </div>
       </section>
+      <section class="story-section" id="our-story" aria-labelledby="story-heading">
+        <div class="story-heading">
+          <img src="assets/villam-carrot.svg" alt="" width="64" height="45" />
+          <span class="section-kicker">Our story</span>
+          <h2 id="story-heading">Good food.<br />Closer to home.</h2>
+        </div>
+        <div class="story-copy">
+          <p>Villam began with an idea: what if an app could make farm-to-table food more accessible to everyday people? We wanted buying local to feel like a natural part of daily life.</p>
+          <p>We thought seasonal recipes could be a starting point. A little inspiration for what to cook could encourage people to discover what’s growing nearby and shop for fresh, local ingredients.</p>
+          <p>Here in our California community, a Thursday-night farmers market doesn’t fit everyone's schedule. And small farms and backyard growers don’t always have the tools to reach nearby buyers.</p>
+          <p>That’s why we’re building Villam for iOS and Android: a place to find seasonal recipes, plan your grocery list, and connect with local growers offering the produce and products you need.</p>
+          <p>We want to help small growers thrive, waste less food, and bring neighbors closer to the food growing around them.</p>
+          <p class="story-signoff">Let’s grow something good, together.</p>
+        </div>
+      </section>
+
+      <section class="waitlist-section" id="waitlist" aria-labelledby="waitlist-heading">
+        <span class="section-kicker">A fresh start is coming</span>
+        <h2 id="waitlist-heading">Good things are growing.</h2>
+        <p>Be first to know when Villam launches. Fresh finds, nearby growers, and a little more community are on the way.</p>
+        <a class="instagram-link" href="https://www.instagram.com/villam_farms/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
+          Follow our journey @villam_farms
+        </a>
+      </section>
     </main>
 
     <footer class="footer">
       <p>Fresh from your community, coming soon.</p>
+      <a href="https://www.instagram.com/villam_farms/" target="_blank" rel="noopener noreferrer">Instagram · @villam_farms</a>
     </footer>
+    <script>
+      const carrotLayer = document.querySelector('.carrot-confetti');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const carrotPositions = [
+        [5, 12, -25, 38], [14, 32, 30, 28], [4, 56, -55, 44],
+        [12, 78, 15, 32], [3, 92, -15, 25], [93, 9, 65, 32],
+        [85, 28, -20, 40], [95, 49, 25, 28], [88, 71, -40, 42],
+        [96, 90, 15, 30],
+      ];
+      carrotPositions.forEach(([x, y, angle, size], index) => {
+        const carrot = document.createElement('span');
+        carrot.className = 'floating-carrot';
+        carrot.style.cssText = `left:${x}%;top:${y}%;--angle:${angle}deg;--size:${size}px;--delay:-${index * 0.7}s`;
+        const icon = document.createElement('img');
+        icon.src = 'assets/villam-carrot.svg';
+        icon.alt = '';
+        icon.draggable = false;
+        carrot.append(icon);
+        carrot.addEventListener('pointerenter', (event) => {
+          if (reducedMotion.matches) return;
+          const bounds = carrot.getBoundingClientRect();
+          const direction = Math.atan2(
+            bounds.top + bounds.height / 2 - event.clientY,
+            bounds.left + bounds.width / 2 - event.clientX,
+          );
+          carrot.style.setProperty('--nudge-x', `${Math.cos(direction) * 8}px`);
+          carrot.style.setProperty('--nudge-y', `${Math.sin(direction) * 8}px`);
+        });
+        carrot.addEventListener('pointerleave', () => {
+          carrot.style.setProperty('--nudge-x', '0px');
+          carrot.style.setProperty('--nudge-y', '0px');
+        });
+        carrotLayer.append(carrot);
+      });
+
+      const phoneStack = document.querySelector('.phone-stack');
+      const previewButtons = document.querySelectorAll('[data-view]');
+      previewButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          phoneStack.dataset.active = button.dataset.view;
+          previewButtons.forEach((control) => {
+            control.setAttribute('aria-pressed', String(control.dataset.view === button.dataset.view));
+          });
+        });
+      });
+    </script>
   </body>
 </html>
